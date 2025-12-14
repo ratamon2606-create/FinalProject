@@ -45,18 +45,18 @@ crypto_dashboard/
 
 ## Installation & Usage
 
-**1. Prerequisites**
+**1. Prerequisites**  
 Python 3.8 or higher  
 Git (Optional)
 
-**2. Install Dependencies**
+**2. Install Dependencies**  
 Open your terminal or command prompt in the project directory and run:
 
 ```Bash
 pip install customtkinter requests pandas mplfinance matplotlib pillow
 ```
 
-**3. Setup Icons (Optional)**
+**3. Setup Icons (Optional)**  
 For the best visual experience, place coin icon images (e.g., BTC.png, ETH.png) in the same directory as main.py. (If icons are missing, the app will automatically display a default placeholder.)
 
 **4. Run the Application**
