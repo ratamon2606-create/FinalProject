@@ -12,7 +12,6 @@ class SidebarPanel(ctk.CTkFrame):
         
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1) 
-        self.grid_rowconfigure(1, weight=0)
 
         self.setup_ui()
 
@@ -23,7 +22,7 @@ class SidebarPanel(ctk.CTkFrame):
         self.overview_panel.grid_rowconfigure(1, weight=1)
         
         self.toggle_frame = ctk.CTkFrame(self.overview_panel, fg_color="transparent")
-        self.toggle_frame.grid(row=0, column=0, sticky="ew", padx=20, pady=(25, 15))
+        self.toggle_frame.grid(row=0, column=0, sticky="ew", padx=20, pady=(20, 5))
         self.toggle_frame.grid_columnconfigure(0, weight=1)
         self.toggle_frame.grid_columnconfigure(1, weight=1)
 
@@ -42,38 +41,41 @@ class SidebarPanel(ctk.CTkFrame):
         self.btn_volume.grid(row=0, column=1, padx=(5, 0), sticky="ew")
 
         self.coin_list_frame = ctk.CTkFrame(self.overview_panel, fg_color="transparent")
-        self.coin_list_frame.grid(row=1, column=0, sticky="nsew", padx=10, pady=(0, 15))
+        self.coin_list_frame.grid(row=1, column=0, sticky="nsew", padx=5, pady=(10, 10))
+        
         self.create_coin_list_items()
 
     def create_coin_list_items(self):
         for coin in config.COINS:
-            item_frame = ctk.CTkFrame(self.coin_list_frame, fg_color="transparent", corner_radius=10, height=55)
-            item_frame.pack(fill="x", pady=2)
+            item_frame = ctk.CTkFrame(self.coin_list_frame, fg_color="transparent", corner_radius=10, height=45)
+            item_frame.pack(fill="x", pady=1) 
             
+            item_frame.grid_columnconfigure(1, weight=1)
+
             try:
-                img = ctk.CTkImage(Image.open(f"{coin}.png"), size=(32, 32))
+                img = ctk.CTkImage(Image.open(f"{coin}.png"), size=(30, 30))
                 icon_lbl = ctk.CTkLabel(item_frame, text="", image=img)
             except:
                 icon_lbl = ctk.CTkLabel(item_frame, text="●", font=("Arial", 22), text_color=config.COLOR_TEXT_SUB)
-            icon_lbl.grid(row=0, column=0, rowspan=2, padx=12, pady=10)
-
-            name_frame = ctk.CTkFrame(item_frame, fg_color="transparent")
-            name_frame.grid(row=0, column=1, rowspan=2, sticky="w", padx=(0, 5))
             
-            ctk.CTkLabel(name_frame, text=config.COINS_INFO[coin], font=("Roboto", 14, "bold"), text_color=config.COLOR_TEXT_MAIN).pack(anchor="w")
-            ctk.CTkLabel(name_frame, text=coin, font=("Roboto", 11), text_color=config.COLOR_TEXT_SUB).pack(anchor="w")
+            icon_lbl.grid(row=0, column=0, rowspan=2, padx=(10, 8), pady=2.5)
 
-            data_frame = ctk.CTkFrame(item_frame, fg_color="transparent")
-            data_frame.grid(row=0, column=2, rowspan=2, sticky="e", padx=10)
-            item_frame.grid_columnconfigure(2, weight=1)
+            ctk.CTkLabel(item_frame, text=config.COINS_INFO[coin], font=("Roboto", 13, "bold"), 
+                         text_color=config.COLOR_TEXT_MAIN).grid(row=0, column=1, sticky="w")
             
-            value_lbl = ctk.CTkLabel(data_frame, text="---", font=("Roboto", 13, "bold"), text_color=config.COLOR_TEXT_MAIN)
-            value_lbl.pack(anchor="e")
-            change_lbl = ctk.CTkLabel(data_frame, text="---", font=("Roboto", 11, "bold"))
-            change_lbl.pack(anchor="e")
+            value_lbl = ctk.CTkLabel(item_frame, text="---", font=("Roboto", 13, "bold"), 
+                                     text_color=config.COLOR_TEXT_MAIN)
+            value_lbl.grid(row=0, column=2, sticky="e", padx=(0, 10))
 
-            for w in [item_frame, icon_lbl, name_frame, value_lbl, change_lbl]:
+            ctk.CTkLabel(item_frame, text=coin, font=("Roboto", 11), 
+                         text_color=config.COLOR_TEXT_SUB).grid(row=1, column=1, sticky="w")
+            
+            change_lbl = ctk.CTkLabel(item_frame, text="---", font=("Roboto", 11, "bold"))
+            change_lbl.grid(row=1, column=2, sticky="e", padx=(0, 10))
+
+            for w in item_frame.winfo_children():
                 w.bind("<Button-1>", lambda e, c=coin: self.on_coin_change(c))
+            item_frame.bind("<Button-1>", lambda e, c=coin: self.on_coin_change(c))
             
             self.coin_widgets[coin] = {"value": value_lbl, "change": change_lbl}
 
@@ -85,7 +87,6 @@ class SidebarPanel(ctk.CTkFrame):
         else:
             self.btn_movement.configure(fg_color="transparent", text_color=config.COLOR_TEXT_SUB)
             self.btn_volume.configure(fg_color=config.COLOR_ACTIVE_BTN, text_color="white")
-        
 
     def update_ui(self, tickers_data):
         for coin in config.COINS:

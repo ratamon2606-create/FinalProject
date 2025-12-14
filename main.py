@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import threading
 import matplotlib.pyplot as plt
+from PIL import Image 
 import config
 import utils
 from components.sidebar import SidebarPanel
@@ -14,9 +15,15 @@ ctk.set_default_color_theme("dark-blue")
 class CryptoDashboard(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("Crypto Dashboard Pro - Final")
+        self.title("Crypto Dashboard - Final")
         self.geometry("1400x900")
-        self.configure(fg_color=config.COLOR_BG)
+        
+        self.configure(fg_color=config.COLOR_BG_TOP)
+        
+        self.bg_image = None
+        self.bg_label = ctk.CTkLabel(self, text="")
+        self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+        self.bind("<Configure>", self.resize_background)
         
         self.tickers_data = {}
         self.current_coin = "BTC"
@@ -34,6 +41,14 @@ class CryptoDashboard(ctk.CTk):
         self.update_detail_data()   
         self.update_chart_task()    
         self.start_live_updates()   
+
+    def resize_background(self, event):
+        if event.widget == self:
+            w, h = self.winfo_width(), self.winfo_height()
+            pil_img = utils.create_gradient_image(w, h, config.COLOR_BG_TOP, config.COLOR_BG_BOTTOM)
+            self.bg_image = ctk.CTkImage(pil_img, size=(w, h))
+            self.bg_label.configure(image=self.bg_image)
+            self.bg_label.lower()
 
     def setup_ui(self):
         self.sidebar_container = ctk.CTkFrame(self, width=320, fg_color="transparent")

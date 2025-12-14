@@ -1,4 +1,8 @@
 COLOR_BG = "#0f0f0f"
+
+COLOR_BG_TOP = "#0f0f0f"
+COLOR_BG_BOTTOM = "#052217"
+
 COLOR_CARD = "#1e222d"
 COLOR_ACTIVE_BTN = "#000000"
 COLOR_TEXT_MAIN = "#ffffff"
@@ -14,6 +18,6 @@ COLOR_CARD_DARK = "#161a25"
 COINS_INFO = {
     "BTC": "Bitcoin", "ETH": "Ethereum", "LTC": "Litecoin",
     "SOL": "Solana", "BNB": "BNB", "ADA": "Cardano",
-    "XRP": "Ripple", "DOGE": "Dogecoin"
+    "XRP": "Ripple"
 }
 COINS = list(COINS_INFO.keys())
