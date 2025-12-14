@@ -2,6 +2,8 @@
 
 **Crypto Dashboard** is a real-time cryptocurrency market analysis and tracking application developed in Python. It features a modern, professional user interface designed for a seamless user experience.
 
+It includes ADA, BNB, BTC, ETH, LTC, XRP, SOL, which can be changed by pressing the logo on the left sidepanel.
+
 The project fetches live data from the **Binance Public API** to display interactive Candlestick Charts, Order Books, and Recent Trades in real-time.
 
 
