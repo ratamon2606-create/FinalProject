@@ -9,6 +9,16 @@ The project fetches live data from the **Binance Public API** to display interac
 
 ---
 
+## Screenshots
+
+The screenshots below show the desktop cryptocurrency dashboard.
+
+| Dashboard View 1 | Dashboard View 2 |
+|:---:|:---:|
+| ![Dashboard view 1](1.png) | ![Dashboard view 2](2.png) |
+
+![Dashboard view 3](3.png)
+
 ## Key Features
 
 * **Real-time Data:** Fetches live price, percentage change, and volume data from Binance.
@@ -55,7 +65,7 @@ Git (Optional)
 Open your terminal or command prompt in the project directory and run:
 
 ```Bash
-pip install customtkinter requests pandas mplfinance matplotlib pillow
+python -m pip install -r requirements.txt
 ```
 
 **3. Setup Icons (Optional)**  
